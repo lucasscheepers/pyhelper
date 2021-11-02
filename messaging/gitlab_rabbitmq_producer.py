@@ -10,7 +10,8 @@ class GitLabRabbitMqProducer:
     def __init__(self):
         self.credentials = pika.PlainCredentials(os.getenv('RABBIT_USR'), os.getenv('RABBIT_PWD'))
         self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host="localhost", port=5672, credentials=self.credentials))
+            pika.ConnectionParameters(host=os.getenv('RABBIT_HOST'), port=os.getenv('RABBIT_PORT'),
+                                      credentials=self.credentials))
 
         self.channel = self.connection.channel()
 
