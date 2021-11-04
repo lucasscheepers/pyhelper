@@ -32,10 +32,12 @@ class Base(Plugin):
         """Retrieves a list of all the commands & arguments including further explanation"""
 
         response = (
-            "| COMMANDS | INFORMATION | OPTIONAL ARGUMENTS\n"
-            "| :-: | :-: | :-: |\n"
-            "| help | *Retrieve a list of all the commands & arguments including further explanation* | *None* |\n"
-            "| git create | *Create new ...* | -h *= help* |\n"
+            "| COMMANDS | INFORMATION | MANDATORY ARGUMENTS | OPTIONAL ARGUMENTS\n"
+            "| :-: | :-: | :-: | :-: |\n"
+            "| help | *Retrieve a list of all the commands & arguments including further explanation* | *None* "
+            "| *None* |\n"
+            "| git create | *Create new merge requests, to-do items, roll out new releases or open new issues* "
+            "| -mr *= merge request* **or** -r *= release* | -h *= help* |\n"
         )
 
         self.driver.reply_to(message, response)

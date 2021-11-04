@@ -17,7 +17,6 @@ class GitLab(Plugin):
     @listen_to("git create -h")
     def help_git_create(self, message: Message):
         """Retrieves a list of all 'git create' commands & arguments including further explanation"""
-
         response = (
             "| COMMANDS | INFORMATION | MANDATORY ARGUMENTS | OPTIONAL ARGUMENTS\n"
             "| :-: | :-: | :-: | :-: |\n"
@@ -25,6 +24,9 @@ class GitLab(Plugin):
             "-sb, --source_branch  *= the branch to be merged* "
             "| -tb, --target_branch *= the branch it will be merged into. Default=master* **or** -ti, --title *= "
             "the title of the merge request. Default=UUID string* |\n"
+            "| r | *Roll out a new release* | -pn, --project_name *= the name of the specific project* **and** "
+            "-tn, --tag_name  *= the tag name to be released* "
+            "| -ti, --title *= the title of the release. Default=None*\n"
         )
 
         self.driver.reply_to(message, response)
@@ -64,32 +66,33 @@ class GitLab(Plugin):
             self.driver.reply_to(message, plugins.base.error_response(str(e)))
             log.error(f"An error has occured: {str(e)}")
 
-    # @listen_to("git create iu")
-    # @click.command(help="Creates a new issue in a Git project")
-    # @click.option("-t", "--title", type=str, help="Title of the issue")
-    # def git_create_mr(
-    #         self, message: Message, title: str
-    # ):
-    #     """Creates a new issue in a Git project. """
-    #
-    #     response = (
-    #         "Received the following arguments:\n"
-    #         f"- title: {title}\n"
-    #     )
-    #     self.driver.reply_to(message, response)
+    @listen_to("git create r")
+    @click.command(help="Rolls out a new release of the project")
+    @click.option("-pn", "--project_name", type=str, help="The name of the project")
+    @click.option("-ti", "--title", type=str, default=None, help="The title of the release")
+    @click.option("-tn", "--tag_name", type=str, help="The tag name to be released")
+    def git_create_r(
+            self, message: Message, project_name: str, title: str, tag_name: str
+    ):
+        """Rolls out a new release of the project"""
+        try:
+            body = {
+                'event_type': 'create_r',
+                'project_name': project_name,
+                'title': title,
+                'tag_name': tag_name,
+            }
+            self.gitlab_rabbitmq_producer.produce_gitlab_data(body)
 
-    # @listen_to("test")
-    # @click.command(help="An example click command with various arguments.")
-    # @click.argument("POSITIONAL_ARG", type=str)
-    # @click.option("--keyword-arg", type=float, default=5.0, help="A keyword arg.")
-    # @click.option("-f", "--flag", is_flag=True, help="Can be toggled.")
-    # def hello_click(
-    #         self, message: Message, positional_arg: str, keyword_arg: float, flag: bool
-    # ):
-    #     response = (
-    #         "Received the following arguments:\n"
-    #         f"- positional_arg: {positional_arg}\n"
-    #         f"- keyword_arg: {keyword_arg}\n"
-    #         f"- flag: {flag}\n"
-    #     )
-    #     self.driver.reply_to(message, response)
+            response = (
+                "Command sent to the GitLab service with the following arguments:\n"
+                f"- project_name: {project_name}\n"
+                f"- title: {title}\n"
+                f"- source_branch: {tag_name}\n"
+            )
+
+            self.driver.reply_to(message, response)
+            log.info(f"Sent successfully a response back to Mattermost")
+        except Exception as e:
+            self.driver.reply_to(message, plugins.base.error_response(str(e)))
+            log.error(f"An error has occured: {str(e)}")

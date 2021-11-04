@@ -3,11 +3,13 @@ from plugins.base import Base
 from plugins.gitlab import GitLab
 
 import os
-import sys
+import logging
 import coloredlogs
 from dotenv import load_dotenv
 load_dotenv()
 coloredlogs.install()
+
+log = logging.getLogger("bot.py")
 
 plugins = [Base(), GitLab()]
 
@@ -30,8 +32,4 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print("Interrupted")
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+        log.info(f"PyHelper stopped")
