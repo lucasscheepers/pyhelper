@@ -37,7 +37,8 @@ class Base(Plugin):
             "| help | *Retrieve a list of all the commands & arguments including further explanation* | *None* "
             "| *None* |\n"
             "| git create | *Create new merge requests, to-do items, roll out new releases or open new issues* "
-            "| -mr *= merge request* **or** -r *= release* | -h *= help* |\n"
+            "| merge-request **or** release | -h *= help* |\n"
+            "| git close | *Close issues or to-do items* | issue **or** to-do-item | -h *= help* |\n"
         )
 
         self.driver.reply_to(message, response)
