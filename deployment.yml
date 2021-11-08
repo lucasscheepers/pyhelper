@@ -26,7 +26,7 @@ spec:
         app: pyhelper
     spec:
       containers:
-        - name: gitlab-service
+        - name: pyhelper
           image: lucasdockerfontys/pyhelper:latest
           imagePullPolicy: Always
           ports:

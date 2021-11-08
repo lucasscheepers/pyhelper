@@ -7,9 +7,10 @@ log = logging.getLogger("messaging/gitlab_rabbitmq_producer.py")
 
 
 class GitLabRabbitMqProducer:
+    # port=os.getenv('RABBIT_PORT') --> for local development
     def __init__(self):
         self.credentials = pika.PlainCredentials(os.getenv('RABBIT_USR'), os.getenv('RABBIT_PWD'))
-        self.parameters = pika.ConnectionParameters(host=os.getenv('RABBIT_HOST'), port=os.getenv('RABBIT_PORT'),
+        self.parameters = pika.ConnectionParameters(host=os.getenv('RABBIT_HOST'),
                                                     credentials=self.credentials, heartbeat=0)
         self.connection = pika.BlockingConnection(self.parameters)
         self.channel = self.connection.channel()
