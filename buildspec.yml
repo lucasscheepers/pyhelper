@@ -47,6 +47,20 @@ phases:
       # - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       # - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       # - docker pull $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing variables to .env file
+      - cat >> .env << EOF
+        MATTERMOST_URL=test
+        MATTERMOST_PORT=test
+        BOT_TOKEN=test
+        BOT_TEAM=test test
+        BOT_CHNNL_ID=test
+
+        RABBIT_HOST=1test
+        RABBIT_PORT=test
+        RABBIT_USR=test
+        RABBIT_PWD=etes
+        EOF
+      - cat .env
 
   build:
     commands:
