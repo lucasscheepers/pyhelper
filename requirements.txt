@@ -3,3 +3,4 @@ python-dotenv~=0.19.1
 click~=7.1.2
 pika~=1.2.0
 mmpy-bot~=2.0.2
+kubernetes~=19.15.0

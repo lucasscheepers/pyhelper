@@ -1,6 +1,7 @@
 from mmpy_bot import Bot, Settings
 from plugins.base import Base
 from plugins.gitlab import GitLab
+from plugins.kubernetes import Kubernetes
 
 import os
 import logging
@@ -11,7 +12,7 @@ coloredlogs.install()
 
 log = logging.getLogger("bot.py")
 
-plugins = [Base(), GitLab()]
+plugins = [Base(), GitLab(), Kubernetes()]
 
 
 def main():

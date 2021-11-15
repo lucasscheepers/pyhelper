@@ -36,9 +36,11 @@ class Base(Plugin):
             "| :-: | :-: | :-: | :-: |\n"
             "| help | *Retrieve a list of all the commands & arguments including further explanation* | *None* "
             "| *None* |\n"
-            "| git create | *Create new merge requests, to-do items, roll out new releases or open new issues* "
-            "| merge-request **or** release **or** -h *= help* | *None* |\n"
-            "| git close | *Close issues or to-do items* | issue **or** to-do-item **or** -h *= help* | *None* |\n"
+            "| git create | *Create new merge requests, roll out new releases or open new issues* "
+            "| merge-request **or** release **or** issue **or** -h *= help* | *None* |\n"
+            "| git close | *Close issues* | issue **or** -h *= help* | *None* |\n"
+            "| kubectl get | *Retrieve a list of running applications in the Kubernetes cluster or logs of a "
+            "specific application* | logs **or** pods **or** -h *= help* | *None* |\n"
         )
 
         self.driver.reply_to(message, response)

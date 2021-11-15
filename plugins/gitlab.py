@@ -105,7 +105,7 @@ class GitLab(Plugin):
     @click.command(help="Creates a new issue in the project")
     @click.argument("description", nargs=-1, type=str)
     @click.option("-pn", "--project_name", type=str, help="The name of the specific project")
-    @click.option("-ti", "--title", type=str, default=None, help="The title of the issue")
+    @click.option("-ti", "--title", type=str, help="The title of the issue")
     def git_create_issue(
             self, message: Message, description: str, project_name: str, title: str
     ):
@@ -141,8 +141,7 @@ class GitLab(Plugin):
         response = (
             "| COMMANDS | INFORMATION | MANDATORY ARGUMENTS | OPTIONAL ARGUMENTS\n"
             "| :-: | :-: | :-: | :-: |\n"
-            "| **NOTE: ALL MANDATORY & OPTIONAL ARGUMENTS WITH IDENTIFIER ARE LIMITED TO ONE WORD, "
-            "EXCEPT FOR THE ARGUMENTS IN <ANGLE BRACKETS>** |\n"
+            "| **NOTE: ALL MANDATORY & OPTIONAL ARGUMENTS WITH IDENTIFIER ARE LIMITED TO ONE WORD**\n"
             "| issue | *Close a issue in the project* | -pn, --project_name *= the name of "
             "the specific project* **and** -ti, --title  *= the title of the issue* | *None* |\n"
         )
@@ -153,7 +152,7 @@ class GitLab(Plugin):
     @listen_to("git close issue")
     @click.command(help="Closes a issue in the project")
     @click.option("-pn", "--project_name", type=str, help="The name of the specific project")
-    @click.option("-ti", "--title", type=str, default=None, help="The title of the issue")
+    @click.option("-ti", "--title", type=str, help="The title of the issue")
     def git_close_issue(
             self, message: Message, project_name: str, title: str
     ):
