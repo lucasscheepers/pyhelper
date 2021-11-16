@@ -21,6 +21,7 @@ class Kubernetes(Plugin):
             "| COMMANDS | INFORMATION | MANDATORY ARGUMENTS | OPTIONAL ARGUMENTS\n"
             "| :-: | :-: | :-: | :-: |\n"
             "| **NOTE: ALL MANDATORY & OPTIONAL ARGUMENTS WITH IDENTIFIER ARE LIMITED TO ONE WORD**\n"
+            "| namespaces | *Retrieve a list of the namespaces in the Kubernetes cluster* | *None* | *None*\n"
             "| pods | *Retrieve a list of running applications in the Kubernetes cluster* | -n, --namespace *= the "
             "name of the specific namespace* | *None*\n"
             "| logs | *Retrieve logs of a specific application* | -n, --namespace *= the name of the specific "
@@ -29,6 +30,26 @@ class Kubernetes(Plugin):
 
         self.driver.reply_to(message, response)
         log.info(f"Sent successfully a response back to Mattermost")
+
+    @listen_to("kubectl get namespaces")
+    def kubectl_get_namespaces(
+            self, message: Message
+    ):
+        """Retrieves a list of the namespaces in the Kubernetes cluster"""
+        try:
+            namespaces_arr = self.kubernetes_service.get_namespaces()
+            namespaces = "- " + "\n- ".join(namespaces_arr)
+
+            response = (
+                f"Available namespaces in the Kubernetes cluster:\n"
+                f"{namespaces}"
+            )
+
+            self.driver.reply_to(message, response)
+            log.info(f"Sent successfully a response back to Mattermost")
+        except Exception as e:
+            self.driver.reply_to(message, plugins.base.error_response(str(e)))
+            log.error(f"An error has occured: {str(e).lower()}")
 
     @listen_to("kubectl get pods")
     @click.command(help="Retrieves a list of running applications in the Kubernetes cluster")

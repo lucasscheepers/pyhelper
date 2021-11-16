@@ -1,5 +1,6 @@
 from kubernetes.client.rest import ApiException
-from kubernetes import client, config
+from kubernetes import client
+from kubernetes.config import load_config
 from exceptions.logs_not_found_exceptions import LogsNotFound
 import logging
 
@@ -9,10 +10,23 @@ log = logging.getLogger("services/kubernetes_service.py")
 class KubernetesService:
     def __init__(self):
         super().__init__()
-        # config.load_kube_config("/Users/lucasscheepers/.kube/config")
-        # config.load_kube_config("/root/.kube/config")
-        # config.load_kube_config()
+        load_config()
+
         self.api_instance = client.CoreV1Api()
+
+    def get_namespaces(self):
+        try:
+            api_response = self.api_instance.list_namespace()
+            dict_response = api_response.to_dict()
+
+            namespaces = []
+            for item in dict_response['items']:
+                namespaces.append(item['metadata']['name'])
+
+            log.info(f"Retrieved the namespaces: {namespaces}")
+            return namespaces
+        except ApiException as e:
+            raise ApiException(e)
 
     def get_pods(self, body):
         try:

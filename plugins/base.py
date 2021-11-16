@@ -1,5 +1,7 @@
 import logging
 import os
+from datetime import datetime
+import pytz
 
 from mmpy_bot import Plugin, listen_to
 from mmpy_bot import Message
@@ -19,13 +21,10 @@ def error_response(error: str):
 class Base(Plugin):
     def on_start(self):
         """Notifies off-topic channel that the bot is now running."""
+        europe_dt = datetime.now().astimezone(pytz.timezone("Europe/Amsterdam")).strftime('%H:%M:%S')
 
-        self.driver.create_post(channel_id=os.getenv('BOT_CHNNL_ID'), message=">I've just started running!")
-
-    def on_stop(self):
-        """Notifies off-topic channel that the bot is shutting down."""
-
-        self.driver.create_post(channel_id=os.getenv('BOT_CHNNL_ID'), message=">I'll be right back!")
+        self.driver.create_post(channel_id=os.getenv('BOT_CHNNL_ID'), message=">I've just started running at "
+                                                                              f"{europe_dt}!")
 
     @listen_to("help")
     def help_pyhelper(self, message: Message):
@@ -39,8 +38,8 @@ class Base(Plugin):
             "| git create | *Create new merge requests, roll out new releases or open new issues* "
             "| merge-request **or** release **or** issue **or** -h *= help* | *None* |\n"
             "| git close | *Close issues* | issue **or** -h *= help* | *None* |\n"
-            "| kubectl get | *Retrieve a list of running applications in the Kubernetes cluster or logs of a "
-            "specific application* | logs **or** pods **or** -h *= help* | *None* |\n"
+            "| kubectl get | *Retrieve a list of the namespaces or running applications in the Kubernetes cluster or "
+            "logs of a specific application* | namespaces **or** pods **or** logs **or** -h *= help* | *None* |\n"
         )
 
         self.driver.reply_to(message, response)
