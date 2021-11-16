@@ -1,4 +1,5 @@
 import logging
+import os
 import click
 from mmpy_bot import Plugin, listen_to
 from mmpy_bot import Message
@@ -12,7 +13,8 @@ log = logging.getLogger("plugins/kubernetes.py")
 class Kubernetes(Plugin):
     def __init__(self):
         super().__init__()
-        self.kubernetes_service = KubernetesService()
+        if os.getenv("DISABLE_KUBERNETES_SERVICE") == "False":
+            self.kubernetes_service = KubernetesService()
 
     @listen_to("kubectl get -h")
     def help_kubectl_get(self, message: Message):

@@ -26,7 +26,7 @@ class KubernetesService:
             log.info(f"Retrieved the namespaces: {namespaces}")
             return namespaces
         except ApiException as e:
-            raise ApiException(e)
+            raise e
 
     def get_pods(self, body):
         try:
@@ -39,7 +39,7 @@ class KubernetesService:
             log.info(f"Retrieved the pods: {pods}")
             return pods
         except ApiException as e:
-            raise ApiException(e)
+            raise e
 
     def get_logs(self, body):
         try:
