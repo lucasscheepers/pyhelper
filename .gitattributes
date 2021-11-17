@@ -1,6 +1,7 @@
 deployment.yml filter=git-crypt diff=git-crypt
 
-# exclude .gitattributtes
+# exclude
 .gitattributes !filter !diff
-.scannerwork !filter !diff
+.scannerwork/ !filter !diff
 .coverage !filter !diff
+cov/ !filter !diff

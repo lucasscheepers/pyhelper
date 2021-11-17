@@ -6,8 +6,6 @@ __pycache__/
 
 # C extensions
 *.so
-cov/**
-.scannerwork
 # Distribution / packaging
 .Python
 env/
@@ -46,6 +44,8 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+cov/
+.scannerwork/
 
 # Translations
 *.mo
