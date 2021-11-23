@@ -5,7 +5,7 @@ import click
 from mmpy_bot import Plugin, listen_to
 from mmpy_bot import Message
 import plugins.base
-from messaging.gitlab_rabbitmq_producer import GitLabRabbitMqProducer
+from messaging.rabbitmq_producer import RabbitMqProducer
 import uuid
 
 log = logging.getLogger("plugins/gitlab.py")
@@ -16,7 +16,7 @@ class GitLab(Plugin):
         super().__init__()
 
         if os.getenv("DISABLE_RABBIT") == "False":
-            self.gitlab_rabbitmq_producer = GitLabRabbitMqProducer()
+            self.gitlab_rabbitmq_producer = RabbitMqProducer()
 
     @listen_to("git create -h")
     def help_git_create(self, message: Message):

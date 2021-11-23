@@ -11,6 +11,5 @@ RUN curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -
     && mv ./kubectl /usr/local/bin/kubectl
 
 COPY . .
-# DON'T FORGET TO EXCLUDE ALL THE TEST FILES IN DOCKER IGNORE
 EXPOSE 8087
 ENTRYPOINT [ "python", "bot.py"]

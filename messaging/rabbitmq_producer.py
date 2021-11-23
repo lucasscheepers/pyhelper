@@ -5,10 +5,10 @@ import logging
 
 log = logging.getLogger("messaging/gitlab_rabbitmq_producer.py")
 
-# TODO: edit this to RabbitMQProducer
-class GitLabRabbitMqProducer:
+
+class RabbitMqProducer:
     # port=os.getenv('RABBIT_PORT') --> for local development
-    # TODO: DELETE PORT FOR AWS DEPLOYMENT
+    # delete port if this service is in a container (in a kubernetes cluster)
     def __init__(self):
         self.credentials = pika.PlainCredentials(os.getenv('RABBIT_USR'), os.getenv('RABBIT_PWD'))
         self.parameters = pika.ConnectionParameters(host=os.getenv('RABBIT_HOST'),

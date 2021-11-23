@@ -11,7 +11,6 @@ log = logging.getLogger("services/kubernetes_service.py")
 
 class KubernetesService:
     def __init__(self):
-        # super().__init__() # TODO: deleted during tests --> check if this breaks some functionalities
         if os.getenv("DISABLE_KUBERNETES_CONFIG") == "False":
             load_config()
 
