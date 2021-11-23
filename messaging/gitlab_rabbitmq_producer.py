@@ -5,7 +5,7 @@ import logging
 
 log = logging.getLogger("messaging/gitlab_rabbitmq_producer.py")
 
-
+# TODO: edit this to RabbitMQProducer
 class GitLabRabbitMqProducer:
     # port=os.getenv('RABBIT_PORT') --> for local development
     # TODO: DELETE PORT FOR AWS DEPLOYMENT

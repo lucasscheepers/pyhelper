@@ -54,27 +54,23 @@ def create_message(
     )
 
 
-class TestPlugin:
+class TestBasePlugin:
     def test_initialize(self):
         p = Base().initialize(Driver())
-        # Test whether the function is registered properly
+        # Test whether the non-click-command is registered properly
         assert p.message_listeners[re.compile("help")] == [
             Base.help_pyhelper,
         ]
 
     @mock.patch("mmpy_bot.driver.ThreadPool.add_task")
-    def test_call_function(self, add_task):
+    def test_help_pyhelper(self, add_task):
         p = Base().initialize(Driver())
 
         message = create_message(text="help")
         asyncio.run(
             p.call_function(Base.help_pyhelper, message)
         )
+
         add_task.assert_called_once_with(
             Base.help_pyhelper, message
         )
-
-    def test_help_string(self):
-        p = Base().initialize(Driver())
-        # Compare the help string with the snapshotted version.
-        # snapshot.assert_match(p.)

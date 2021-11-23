@@ -46,6 +46,7 @@ coverage.xml
 .hypothesis/
 cov/
 .scannerwork/
+tests/integration_tests/bot.lock
 
 # Translations
 *.mo
