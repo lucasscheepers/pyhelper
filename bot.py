@@ -7,7 +7,12 @@ import os
 import logging
 import coloredlogs
 from dotenv import load_dotenv
-load_dotenv()
+
+if os.getenv('TESTING') == "True":
+    load_dotenv(".testing-env")
+else:
+    load_dotenv()
+
 coloredlogs.install()
 
 log = logging.getLogger("bot.py")

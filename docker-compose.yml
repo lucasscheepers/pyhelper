@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  app:
+    # This docker-compose file specifies a mmpy_bot
+    # running locally for development/test purposes
+    container_name: "mmpy_bot"
+    build: .
+    # network_mode and extra_hosts should only be necessary
+    # if mattermost is running on the host machine
+    network_mode: host
+    extra_hosts:
+      - "dockerhost:127.0.0.1"
+    environment:
+      - TESTING=True
