@@ -33,6 +33,7 @@ phases:
       - cp deployment.yml ../deployment.yml
       - cd ..
       - aws s3 cp s3://s3-mattermost-iv/pyhelper.env .env
+      - aws s3 cp s3://s3-mattermost-iv/pyhelper.testing-env .testing-env
 
   pre_build:
     commands:

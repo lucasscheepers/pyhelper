@@ -6,6 +6,7 @@ from mmpy_bot import Message
 import plugins.base
 from exceptions.logs_not_found_exceptions import LogsNotFound
 from services.kubernetes_service import KubernetesService
+from services.mock_kubernetes_service import MockKubernetesService
 
 log = logging.getLogger("plugins/kubernetes.py")
 
@@ -15,6 +16,8 @@ class Kubernetes(Plugin):
         super().__init__()
         if os.getenv("DISABLE_KUBERNETES_SERVICE") == "False":
             self.kubernetes_service = KubernetesService()
+        else:
+            self.kubernetes_service = MockKubernetesService()
 
     @listen_to("kubectl get -h")
     def help_kubectl_get(self, message: Message):

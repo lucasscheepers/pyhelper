@@ -3,7 +3,7 @@ import json
 import os
 import logging
 
-log = logging.getLogger("messaging/gitlab_rabbitmq_producer.py")
+log = logging.getLogger("messaging/rabbitmq_producer.py")
 
 
 class RabbitMqProducer:

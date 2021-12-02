@@ -1,6 +1,5 @@
 import time
 from typing import Dict
-
 import pytest
 
 from mmpy_bot import (
@@ -8,9 +7,12 @@ from mmpy_bot import (
     Settings
 )
 from mmpy_bot.driver import Driver
+import logging
+
+log = logging.getLogger("tests/integration_tests/utils.py")
 
 OFF_TOPIC_ID = "ahzqezf33jny9mpst758dnaahw"
-RESPONSE_TIMEOUT = 15
+RESPONSE_TIMEOUT = 2
 
 
 def expect_reply(driver: Driver, post: Dict, wait=RESPONSE_TIMEOUT, retries=1):

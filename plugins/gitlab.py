@@ -6,6 +6,7 @@ from mmpy_bot import Plugin, listen_to
 from mmpy_bot import Message
 import plugins.base
 from messaging.rabbitmq_producer import RabbitMqProducer
+from messaging.mock_rabbitmq_producer import MockRabbitMqProducer
 import uuid
 
 log = logging.getLogger("plugins/gitlab.py")
@@ -17,6 +18,8 @@ class GitLab(Plugin):
 
         if os.getenv("DISABLE_RABBIT") == "False":
             self.gitlab_rabbitmq_producer = RabbitMqProducer()
+        else:
+            self.gitlab_rabbitmq_producer = MockRabbitMqProducer()
 
     @listen_to("git create -h")
     def help_git_create(self, message: Message):
@@ -96,7 +99,7 @@ class GitLab(Plugin):
                 "Command sent to the GitLab service with the following arguments:\n"
                 f"- project_name: {project_name}\n"
                 f"- title: {title}\n"
-                f"- source_branch: {tag_name}\n"
+                f"- tag_name: {tag_name}\n"
             )
 
             self.driver.reply_to(message, response)
