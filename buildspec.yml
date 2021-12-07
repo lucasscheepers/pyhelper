@@ -71,5 +71,5 @@ phases:
       - docker push $ECRURI:latest
       - docker push $ECRURI:$CODEBUILD_BUILD_NUMBER
       - echo Push the latest image to cluster
-      # - kubectl delete -n ind-iv -f deployment.yml
+      # - kubectl delete -n ind-iv -f deployment.yml j
       - kubectl apply -n ind-iv -f deployment.yml
