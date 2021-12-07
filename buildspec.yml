@@ -14,7 +14,7 @@ phases:
   install:
     commands:
       - git --version
-      - echo Installing app dependencies...
+      - echo Installing the dependencies...
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip
       - unzip sonar-scanner-cli-4.5.0.2216-linux.zip
       - export PATH=$PATH:./sonar-scanner-4.5.0.2216-linux/bin/
@@ -75,5 +75,5 @@ phases:
       - docker push $ECRURI:latest
       - docker push $ECRURI:$CODEBUILD_BUILD_NUMBER
       - echo Push the latest image to cluster
-      # - kubectl delete -n ind-iv -f deployment.yml
+      - kubectl delete -n ind-iv -f deployment.yml
       - kubectl apply -n ind-iv -f deployment.yml
