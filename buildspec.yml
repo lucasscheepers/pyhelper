@@ -5,6 +5,9 @@ env:
   secrets-manager:
     ARNROLE: codebuild:arnrole
     ECRURI: codebuild:ecruripyhelper
+    SONARORGANIZATION: codebuild:sonarorganization
+    SONARPROJECTKEY: codebuild:sonarprojectkeypyhelper
+    SONARLOGIN: codebuild:sonarlogin
 
 phases:
 
@@ -46,6 +49,13 @@ phases:
       - kubectl get svc
       - echo 'Logging in to Amazon ECR...'
       - $(aws ecr get-login --region eu-west-2 --no-include-email)
+      - echo Tests started on `date`
+      - docker-compose -f tests/integration_tests/docker-compose.yml up -d --build && sleep 30
+      - docker-compose up -d --build
+      - coverage run -m pytest -rap --junitxml coverage.xml
+      - coverage xml -i
+      - echo Sonar scanner started on `date`
+      - sonar-scanner -Dsonar.organization=$SONARORGANIZATION -Dsonar.projectKey=$SONARPROJECTKEY -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARLOGIN
 
   build:
     commands:
