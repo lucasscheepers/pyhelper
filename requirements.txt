@@ -4,7 +4,3 @@ click~=7.1.2
 pika~=1.2.0
 mmpy-bot~=2.0.2
 kubernetes~=19.15.0
-
-pytz~=2020.4
-pytest~=6.2.5
-filelock~=3.3.2

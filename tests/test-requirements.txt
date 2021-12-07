@@ -1,2 +1,4 @@
 pytest
 coverage
+mmpy-bot~=2.0.2
+kubernetes~=19.15.0
