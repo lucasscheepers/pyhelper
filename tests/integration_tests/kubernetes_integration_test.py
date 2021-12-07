@@ -1,6 +1,6 @@
-from .utils_integration import OFF_TOPIC_ID
-from .utils_integration import driver as driver_fixture
-from .utils_integration import expect_reply
+from tests.integration_tests.utils_integration import OFF_TOPIC_ID
+from tests.integration_tests.utils_integration import driver as driver_fixture
+from tests.integration_tests.utils_integration import expect_reply
 
 driver = driver_fixture
 
