@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM 736487896839.dkr.ecr.eu-west-2.amazonaws.com/python:3.8-alpine
 RUN mkdir /app
 WORKDIR /app
 
