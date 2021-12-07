@@ -50,8 +50,8 @@ phases:
       - echo 'Logging in to Amazon ECR...'
       - $(aws ecr get-login --region eu-west-2 --no-include-email)
       - echo Tests started on `date`
-      - docker-compose -f tests/integration_tests/docker-compose.yml up -d --build && sleep 30
       - docker-compose up -d --build
+      - docker-compose -f tests/integration_tests/docker-compose.yml up -d --build && sleep 30
       - coverage run -m pytest -rap --junitxml coverage.xml
       - coverage xml -i
       - echo Sonar scanner started on `date`
