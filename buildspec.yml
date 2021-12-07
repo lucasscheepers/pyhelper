@@ -15,6 +15,10 @@ phases:
     commands:
       - git --version
       - echo Installing app dependencies...
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+      - unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+      - export PATH=$PATH:./sonar-scanner-3.3.0.1492-linux/bin/
+      - pip install -r tests/test-requirements.txt
       - chmod +x prereqs.sh
       - sh prereqs.sh
       - source ~/.bashrc
