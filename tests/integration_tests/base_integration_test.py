@@ -1,11 +1,11 @@
-from .utils import OFF_TOPIC_ID
-from .utils import driver as driver_fixture
-from .utils import expect_reply
+from .utils_integration import OFF_TOPIC_ID
+from .utils_integration import driver as driver_fixture
+from .utils_integration import expect_reply
 
 driver = driver_fixture
 
 
-class TestBasePlugin:
+class TestIntegrationBasePlugin:
     def test_help(self, driver):
         post = driver.create_post(OFF_TOPIC_ID, "help")
         reply = expect_reply(driver, post)
