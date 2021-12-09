@@ -27,7 +27,7 @@ def main():
             MATTERMOST_PORT=os.getenv('MATTERMOST_PORT'),
             BOT_TOKEN=os.getenv('BOT_TOKEN'),
             BOT_TEAM=os.getenv('BOT_TEAM'),
-            SSL_VERIFY=False
+            SSL_VERIFY=True
         ),
         plugins=plugins
     )
