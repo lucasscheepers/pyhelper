@@ -3,7 +3,7 @@ import re
 from unittest import mock
 
 from mmpy_bot import Message
-from plugins.base import Base
+from plugins.base_plugin import BaseP
 
 from mmpy_bot.driver import Driver
 
@@ -56,21 +56,21 @@ def create_message(
 
 class TestBasePlugin:
     def test_initialize(self):
-        p = Base().initialize(Driver())
+        p = BaseP().initialize(Driver())
         # Test whether the non-click-command is registered properly
         assert p.message_listeners[re.compile("help")] == [
-            Base.help_pyhelper,
+            BaseP.help_pyhelper,
         ]
 
     @mock.patch("mmpy_bot.driver.ThreadPool.add_task")
     def test_help_pyhelper(self, add_task):
-        p = Base().initialize(Driver())
+        p = BaseP().initialize(Driver())
 
         message = create_message(text="help")
         asyncio.run(
-            p.call_function(Base.help_pyhelper, message)
+            p.call_function(BaseP.help_pyhelper, message)
         )
 
         add_task.assert_called_once_with(
-            Base.help_pyhelper, message
+            BaseP.help_pyhelper, message
         )
