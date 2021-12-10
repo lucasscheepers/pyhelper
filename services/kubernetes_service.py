@@ -3,7 +3,7 @@ import os
 from kubernetes.client.rest import ApiException
 from kubernetes import client
 from kubernetes.config import load_config
-from exceptions.logs_not_found_exceptions import LogsNotFound
+from exceptions.logs_not_found_exception import LogsNotFoundE
 import logging
 
 log = logging.getLogger("services/kubernetes_service.py")
@@ -52,4 +52,4 @@ class KubernetesService:
             log.info(f"Retrieved the logs: {tail_logs}")
             return tail_logs
         except ApiException:
-            raise LogsNotFound(body['namespace'], body['pod_name'])
+            raise LogsNotFoundE(body['namespace'], body['pod_name'])

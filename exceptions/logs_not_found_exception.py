@@ -1,4 +1,4 @@
-class LogsNotFound(Exception):
+class LogsNotFoundE(Exception):
     """Raised when the namespace or pod is not found
 
     Attributes:

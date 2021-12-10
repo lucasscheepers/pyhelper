@@ -1,4 +1,4 @@
-from exceptions.logs_not_found_exceptions import LogsNotFound
+from exceptions.logs_not_found_exception import LogsNotFoundE
 import logging
 
 log = logging.getLogger("services/mock_kubernetes_service.py")
@@ -15,4 +15,4 @@ class MockKubernetesService:
         if body['namespace'] == "namespace1" and body['pod_name'] == "pod1":
             return "2021-12-02 10:54:04 test[1] INFO Test logs"
         else:
-            raise LogsNotFound(body['namespace'], body['pod_name'])
+            raise LogsNotFoundE(body['namespace'], body['pod_name'])

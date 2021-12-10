@@ -2,7 +2,7 @@ import os
 from unittest import mock
 from tests.unit_tests import utils
 from services.kubernetes_service import KubernetesService
-from exceptions.logs_not_found_exceptions import LogsNotFound
+from exceptions.logs_not_found_exception import LogsNotFoundE
 import pytest
 from kubernetes.client.rest import ApiException
 
@@ -93,5 +93,5 @@ class TestKubernetesService:
                 'pod_name': 'unknown-pod'
             }
 
-            with pytest.raises(LogsNotFound):
+            with pytest.raises(LogsNotFoundE):
                 self.service.get_logs(body)

@@ -4,13 +4,13 @@ import pytest
 import os
 
 from mmpy_bot import Bot, Settings
-from plugins.gitlab import GitLab
-from plugins.kubernetes import Kubernetes
+from plugins.gitlab_plugin import GitLabP
+from plugins.kubernetes_plugin import KubernetesP
 
 
 @pytest.fixture(scope="function")
 def bot():
-    bot = Bot(plugins=[GitLab(), Kubernetes()], settings=Settings(DEBUG=True))
+    bot = Bot(plugins=[GitLabP(), KubernetesP()], settings=Settings(DEBUG=True))
     yield bot
     bot.stop()  # if the bot was started, stop it
 
@@ -20,7 +20,7 @@ class TestBot:
     @mock.patch("mmpy_bot.driver.Driver.login")
     def test_init(self, login):
         # Create some plugins and mock their initialize method so we can check calls
-        plugins = [GitLab(), Kubernetes()]
+        plugins = [GitLabP(), KubernetesP()]
         for plugin in plugins:
             plugin.initialize = mock.MagicMock()
 

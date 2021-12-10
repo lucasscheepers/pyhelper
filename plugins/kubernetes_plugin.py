@@ -3,15 +3,15 @@ import os
 import click
 from mmpy_bot import Plugin, listen_to
 from mmpy_bot import Message
-import plugins.base
-from exceptions.logs_not_found_exceptions import LogsNotFound
+import plugins.base_plugin
+from exceptions.logs_not_found_exception import LogsNotFoundE
 from services.kubernetes_service import KubernetesService
 from services.mock_kubernetes_service import MockKubernetesService
 
 log = logging.getLogger("plugins/kubernetes.py")
 
 
-class Kubernetes(Plugin):
+class KubernetesP(Plugin):
     def __init__(self):
         super().__init__()
         if os.getenv("DISABLE_KUBERNETES_SERVICE") == "False":
@@ -53,7 +53,7 @@ class Kubernetes(Plugin):
             self.driver.reply_to(message, response)
             log.info(f"Sent successfully a response back to Mattermost")
         except Exception as e:
-            self.driver.reply_to(message, plugins.base.error_response(str(e)))
+            self.driver.reply_to(message, plugins.base_plugin.error_response(str(e)))
             log.error(f"An error has occured: {str(e).lower()}")
 
     @listen_to("kubectl get pods")
@@ -79,7 +79,7 @@ class Kubernetes(Plugin):
             self.driver.reply_to(message, response)
             log.info(f"Sent successfully a response back to Mattermost")
         except Exception as e:
-            self.driver.reply_to(message, plugins.base.error_response(str(e)))
+            self.driver.reply_to(message, plugins.base_plugin.error_response(str(e)))
             log.error(f"An error has occured: {str(e).lower()}")
 
     @listen_to("kubectl get logs")
@@ -102,8 +102,8 @@ class Kubernetes(Plugin):
 
             self.driver.reply_to(message, response)
             log.info(f"Sent successfully a response back to Mattermost")
-        except LogsNotFound as e:
-            self.driver.reply_to(message, plugins.base.error_response(f"{str(e).lower()}. Please check if the pod_name "
+        except LogsNotFoundE as e:
+            self.driver.reply_to(message, plugins.base_plugin.error_response(f"{str(e).lower()}. Please check if the pod_name "
                                                                       f"and namespace are correct "))
             log.error(f"An error has occured: {str(e).lower()}. "
                       "Please check if the pod_name and namespace are correct")

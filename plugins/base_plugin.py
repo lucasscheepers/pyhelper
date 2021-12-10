@@ -18,7 +18,7 @@ def error_response(error: str):
     return response
 
 
-class Base(Plugin):
+class BaseP(Plugin):
     def on_start(self):
         """Notifies off-topic channel that the bot is now running."""
         europe_dt = datetime.now().astimezone(pytz.timezone("Europe/Amsterdam")).strftime('%H:%M:%S')
